@@ -94,9 +94,13 @@ img { max-width: 100%; }
 .phone-card { position: absolute; width: clamp(90px, 10.4vw, 155px); aspect-ratio: .45; margin: 0; border-radius: clamp(12px, 1.6vw, 23px); overflow: hidden; background: #11182b; border: 1px solid rgba(255,255,255,.17); box-shadow: 0 28px 70px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.12); opacity: .54; filter: saturate(.82) brightness(.85); will-change: transform; }
 .phone-card::after { content:""; position:absolute; inset:0; background:linear-gradient(120deg, rgba(255,255,255,.14), transparent 35%); pointer-events:none; }.phone-card img { width: 100%; height: 100%; object-fit: cover; }.card-a { left: 7vw; top: 23vh; transform: rotate(-10deg); animation: float-a 8s ease-in-out infinite; }.card-b { right: 7vw; top: 19vh; transform: rotate(9deg); animation: float-b 9s ease-in-out infinite; }.card-c { left: 14vw; bottom: -10vh; transform: rotate(8deg); animation: float-c 10s ease-in-out infinite; }.card-d { right: 15vw; bottom: -12vh; transform: rotate(-7deg); animation: float-d 8.6s ease-in-out infinite; }
 .center-cta { position: absolute; z-index: 30; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 11px; }
-.play-badge { display: inline-flex; align-items: center; gap: 13px; min-width: 218px; height: 68px; padding: 7px 20px 7px 15px; border: 1px solid rgba(255,255,255,.72); border-radius: 12px; background: linear-gradient(180deg, #161616, #050505); color: #fff; box-shadow: 0 14px 40px rgba(0,0,0,.42), 0 0 0 8px rgba(255,255,255,.025); cursor: default; user-select: none; transition: box-shadow .25s ease, border-color .25s ease, transform .25s ease; }
+.play-badge { display: inline-flex; align-items: center; gap: 13px; min-width: 218px; height: 68px; padding: 7px 20px 7px 15px; border: 1px solid rgba(255,255,255,.72); border-radius: 12px; background: linear-gradient(180deg, #161616, #050505); color: #fff; box-shadow: 0 14px 40px rgba(0,0,0,.42), 0 0 0 8px rgba(255,255,255,.025); cursor: pointer; user-select: none; text-decoration: none; transition: box-shadow .25s ease, border-color .25s ease, transform .25s ease; }
 .play-badge:hover, .play-badge:focus-visible { border-color: #fff; box-shadow: 0 18px 46px rgba(0,0,0,.48), 0 0 0 8px rgba(98,230,255,.045); outline: none; transform: translateY(-1px); }
 .play-icon { width: 39px; height: 39px; flex: 0 0 auto; display: block; }.play-icon svg { width: 100%; height: 100%; display: block; }.play-copy { text-align: left; line-height: 1; display: flex; flex-direction: column; gap: 4px; }.play-copy small { font-size: 10px; font-weight: 500; letter-spacing: .08em; }.play-copy strong { font-size: 23px; font-weight: 520; letter-spacing: -.035em; white-space: nowrap; }.coming-soon { color: rgba(214,224,246,.63); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; }
+.qr-download { display: flex; flex-direction: column; align-items: center; gap: 7px; margin-top: 3px; color: rgba(214,224,246,.72); font-size: 9px; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; opacity: .92; }
+.qr-download img { width: 84px; height: 84px; padding: 6px; border: 1px solid rgba(136,224,255,.45); border-radius: 8px; background: #fff; box-shadow: 0 0 0 5px rgba(98,230,255,.035), 0 8px 25px rgba(0,0,0,.28); transition: transform .25s ease, box-shadow .25s ease; }
+.qr-download:hover img, .qr-download:focus-visible img { transform: scale(1.04); box-shadow: 0 0 0 7px rgba(98,230,255,.08), 0 10px 30px rgba(0,0,0,.34); }
+.qr-download:focus-visible { outline: none; color: #fff; }
 .feature-strip { position: absolute; z-index: 11; bottom: max(32px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; white-space: nowrap; color: rgba(199,211,238,.58); font-size: clamp(9px, 1vw, 12px); text-transform: uppercase; letter-spacing: .15em; }.feature-strip b { width: 3px; height: 3px; border-radius: 50%; background: rgba(99,226,255,.8); }
 .particle-field { position:absolute; inset:0; z-index:-1; pointer-events:none; }.particle-field span { position: absolute; left: var(--x); top: var(--y); width: var(--s); height: var(--s); border-radius:50%; background: rgba(150,205,255,.65); box-shadow: 0 0 13px rgba(95,183,255,.7); animation: particle 7s ease-in-out var(--d) infinite; }
 .scroll-cue { position: absolute; z-index: 25; left: 50%; bottom: 72px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 7px; text-decoration: none; color: rgba(219,229,250,.55); font-size: 9px; letter-spacing: .18em; text-transform: uppercase; opacity: .82; }.scroll-cue span { width: 21px; height: 34px; border: 1px solid rgba(255,255,255,.24); border-radius: 13px; position: relative; }.scroll-cue span::after { content:""; position:absolute; left:50%; top:7px; width:3px; height:6px; border-radius:99px; background:var(--cyan); transform:translateX(-50%); animation:scroll-drop 1.7s ease-in-out infinite; }
@@ -283,6 +287,9 @@ main > section {
 body.auto-tour-active {
   overscroll-behavior-y: contain;
 }
+body.auto-tour-active main {
+  scroll-snap-type: none;
+}
 .feature-visual-frame {
   overflow:hidden;
 }
@@ -454,6 +461,7 @@ body.auto-tour-active {
   z-index:-1;
 }
 .play-badge { animation:cta-float 4s ease-in-out infinite; }
+.qr-download { animation:qr-float 4.8s ease-in-out infinite; }
 .phone-card { transition:filter .35s ease, opacity .35s ease; }
 .card-a { animation:float-a-boost 6.8s ease-in-out infinite; }
 .card-b { animation:float-b-boost 7.4s ease-in-out infinite; }
@@ -488,6 +496,7 @@ body.auto-tour-active {
 @keyframes brand-shimmer { 0%,20%{background-position:110% 0}58%,100%{background-position:-110% 0} }
 @keyframes cta-halo { 0%,100%{transform:translate(-50%,-50%) scale(.9);opacity:.35}50%{transform:translate(-50%,-50%) scale(1.15);opacity:.72} }
 @keyframes cta-float { 0%,100%{translate:0 0}50%{translate:0 -4px} }
+@keyframes qr-float { 0%,100%{translate:0 0}50%{translate:0 -3px} }
 @keyframes float-a-boost { 0%,100%{transform:translate3d(0,0,0) rotate(-10deg) scale(1)}50%{transform:translate3d(16px,-20px,0) rotate(-6deg) scale(1.04)} }
 @keyframes float-b-boost { 0%,100%{transform:translate3d(0,0,0) rotate(9deg) scale(1)}50%{transform:translate3d(-18px,15px,0) rotate(5deg) scale(1.035)} }
 @keyframes float-c-boost { 0%,100%{transform:translate3d(0,0,0) rotate(8deg) scale(1)}50%{transform:translate3d(22px,-18px,0) rotate(11deg) scale(1.035)} }
