@@ -2,6 +2,7 @@
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const coarsePointer = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
   const mobileViewport = coarsePointer && window.matchMedia('(max-width: 991.98px)').matches;
+  const autoTourEnabled = false;
   const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 
   // Lightweight hero depth motion.
@@ -76,7 +77,7 @@
   updateSectionWindows();
 
   // Smooth guided tour. The first cover → features move is intentionally faster.
-  if (sections.length && !reducedMotion) {
+  if (autoTourEnabled && sections.length && !reducedMotion) {
     let cancelled = false;
     let timer = 0;
     let scrollFrame = 0;
@@ -150,8 +151,6 @@
         if (cancelled) return;
         const t = clamp((now - start) / duration);
         window.scrollTo(0, startY + delta * ease(t));
-        // Update zoom variables in the same animation frame instead of a separate expensive effect.
-        updateSectionWindows();
         if (t < 1) {
           scrollFrame = requestAnimationFrame(step);
         } else {
@@ -167,7 +166,7 @@
       if (cancelled || activeIndex >= sections.length - 1) return;
       const firstMove = activeIndex === 0;
       const delay = firstMove ? 2600 : 5000;
-      const duration = firstMove ? 690 : 1220;
+      const duration = firstMove ? 1300 : 1700;
       timer = setTimeout(() => {
         if (cancelled) return;
         const nextIndex = Math.min(activeIndex + 1, sections.length - 1);
